@@ -1,17 +1,17 @@
-import { getPhotoPair } from "@/lib/queries";
-import MatchupView from "@/components/MatchupView";
+import { getLeaderboard } from "@/lib/queries";
+import TournamentView from "@/components/TournamentView";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const pair = await getPhotoPair();
+  const photos = await getLeaderboard();
 
-  if (!pair) {
+  if (photos.length < 4) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-        <p className="text-3xl font-black text-zinc-600">No matchups yet.</p>
+        <p className="text-3xl font-black text-zinc-600">Not enough photos yet.</p>
         <p className="text-zinc-500">
-          The admin needs to upload at least 2 photos to get started.
+          The admin needs to upload at least 4 photos to start a tournament.
         </p>
       </div>
     );
@@ -22,7 +22,7 @@ export default async function Home() {
       <h1 className="text-4xl font-black tracking-tight text-center">
         Which one is better?
       </h1>
-      <MatchupView initialA={pair[0]} initialB={pair[1]} />
+      <TournamentView photos={photos} />
     </div>
   );
 }
