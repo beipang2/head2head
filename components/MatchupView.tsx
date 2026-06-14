@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import PhotoCard from "./PhotoCard";
 import AdSlot from "./AdSlot";
-import siteConfig from "@/site.config";
 
 interface Photo {
   id: string;
@@ -33,11 +32,7 @@ export default function MatchupView({ initialA, initialB }: MatchupViewProps) {
         await fetch("/api/vote", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            photoAId: photoA.id,
-            photoBId: photoB.id,
-            winnerId,
-          }),
+          body: JSON.stringify({ photoAId: photoA.id, photoBId: photoB.id, winnerId }),
         });
 
         await new Promise((r) => setTimeout(r, 800));
@@ -67,7 +62,7 @@ export default function MatchupView({ initialA, initialB }: MatchupViewProps) {
       <AdSlot slot="top-banner" className="w-full h-20 max-w-2xl" />
 
       <p className="text-zinc-400 text-sm tracking-widest uppercase">
-        {siteConfig.votePrompt}
+        Click the one you prefer
       </p>
 
       <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full max-w-4xl px-4">
@@ -78,13 +73,9 @@ export default function MatchupView({ initialA, initialB }: MatchupViewProps) {
           winner={voted === photoA.id}
           loser={voted !== null && voted !== photoA.id}
         />
-
         <div className="flex-shrink-0">
-          <span className="text-4xl font-black text-zinc-600 tracking-tighter">
-            VS
-          </span>
+          <span className="text-4xl font-black text-zinc-600 tracking-tighter">VS</span>
         </div>
-
         <PhotoCard
           photo={photoB}
           onClick={handleVote}

@@ -2,17 +2,6 @@
 
 import Image from "next/image";
 import AdSlot from "./AdSlot";
-import siteConfig from "@/site.config";
-
-const accentText: Record<typeof siteConfig.accentColor, string> = {
-  rose: "text-rose-400",
-  blue: "text-blue-400",
-  emerald: "text-emerald-400",
-  violet: "text-violet-400",
-  amber: "text-amber-400",
-  cyan: "text-cyan-400",
-  orange: "text-orange-400",
-};
 
 interface Photo {
   id: string;
@@ -38,38 +27,22 @@ export default function Leaderboard({ photos }: { photos: Photo[] }) {
               >
                 <span
                   className={`text-xl font-black w-8 text-center ${
-                    i === 0
-                      ? "text-yellow-400"
-                      : i === 1
-                      ? "text-zinc-300"
-                      : i === 2
-                      ? "text-orange-400"
-                      : "text-zinc-600"
+                    i === 0 ? "text-yellow-400" : i === 1 ? "text-zinc-300" : i === 2 ? "text-orange-400" : "text-zinc-600"
                   }`}
                 >
                   {i + 1}
                 </span>
                 <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                  <Image
-                    src={photo.url}
-                    alt={photo.label ?? "Photo"}
-                    fill
-                    className="object-cover"
-                    sizes="56px"
-                  />
+                  <Image src={photo.url} alt={photo.label ?? "Photo"} fill className="object-cover" sizes="56px" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-white font-semibold truncate">
-                    {photo.label ?? `Photo ${i + 1}`}
-                  </p>
+                  <p className="text-white font-semibold truncate">{photo.label ?? `Photo ${i + 1}`}</p>
                   <p className="text-zinc-500 text-xs">
                     {photo.wins}W – {photo.losses}L &middot; {winPct}% win rate
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className={`${accentText[siteConfig.accentColor]} font-bold text-lg`}>
-                    {Math.round(photo.rating)}
-                  </p>
+                  <p className="text-rose-400 font-bold text-lg">{Math.round(photo.rating)}</p>
                   <p className="text-zinc-600 text-xs">ELO</p>
                 </div>
               </div>
