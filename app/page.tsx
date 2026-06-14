@@ -20,7 +20,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center gap-8 w-full">
       <h1 className="text-4xl font-black tracking-tight text-center">
-        Which one is better?
+        &lt;Tagline&gt;
       </h1>
       <TournamentView photos={photos} />
     </div>

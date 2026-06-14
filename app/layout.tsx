@@ -6,8 +6,8 @@ import "./globals.css";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Head2Head — Rate Photos Side by Side",
-  description: "Vote for your favorite photos in head-to-head matchups.",
+  title: "<Site Name>",
+  description: "<Site description>",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             href="/"
             className="text-xl font-black tracking-tight text-rose-500 hover:text-rose-400 transition-colors"
           >
-            HEAD2HEAD
+            &lt;Site Name&gt;
           </Link>
           <div className="flex gap-6 text-sm font-medium text-zinc-400">
             <Link href="/" className="hover:text-white transition-colors">Vote</Link>
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </nav>
         <main className="flex-1 flex flex-col items-center py-10">{children}</main>
         <footer className="text-center text-zinc-700 text-xs py-4 border-t border-zinc-900">
-          &copy; {new Date().getFullYear()} Head2Head
+          &copy; {new Date().getFullYear()} &lt;Site Name&gt;
         </footer>
       </body>
     </html>

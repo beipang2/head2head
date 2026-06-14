@@ -81,7 +81,7 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
       </p>
 
       <p className="text-zinc-400 text-sm tracking-widest uppercase">
-        Pick your favourite
+        &lt;Vote prompt&gt;
       </p>
 
       <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full max-w-4xl px-4">
