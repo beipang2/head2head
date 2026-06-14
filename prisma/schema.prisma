@@ -9,7 +9,7 @@ datasource db {
 model Photo {
   id        String   @id @default(cuid())
   url       String
-  label     String?
+  labels    Json?
   rating    Float    @default(1000)
   wins      Int      @default(0)
   losses    Int      @default(0)

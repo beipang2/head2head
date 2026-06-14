@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
+import { getLocale, getMessages } from "@/lib/i18n";
+import { LocaleProvider } from "@/components/LocaleProvider";
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"] });
@@ -10,28 +13,20 @@ export const metadata: Metadata = {
   description: "<Site description>",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+  const messages = await getMessages(locale);
+
   return (
-    <html lang="en" className="h-full">
-      <body
-        className={`${geist.className} min-h-full flex flex-col bg-zinc-950 text-white antialiased`}
-      >
-        <nav className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
-          <Link
-            href="/"
-            className="text-xl font-black tracking-tight text-rose-500 hover:text-rose-400 transition-colors"
-          >
-            &lt;Site Name&gt;
-          </Link>
-          <div className="flex gap-6 text-sm font-medium text-zinc-400">
-            <Link href="/" className="hover:text-white transition-colors">Vote</Link>
-            <Link href="/leaderboard" className="hover:text-white transition-colors">Leaderboard</Link>
-          </div>
-        </nav>
-        <main className="flex-1 flex flex-col items-center py-10">{children}</main>
-        <footer className="text-center text-zinc-700 text-xs py-4 border-t border-zinc-900">
-          &copy; {new Date().getFullYear()} &lt;Site Name&gt;
-        </footer>
+    <html lang={locale} className="h-full">
+      <body className={`${geist.className} min-h-full flex flex-col bg-zinc-950 text-white antialiased`}>
+        <LocaleProvider locale={locale} messages={messages}>
+          <Nav />
+          <main className="flex-1 flex flex-col items-center py-10">{children}</main>
+          <footer className="text-center text-zinc-700 text-xs py-4 border-t border-zinc-900">
+            &copy; {new Date().getFullYear()} &lt;Site Name&gt;
+          </footer>
+        </LocaleProvider>
       </body>
     </html>
   );
