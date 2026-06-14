@@ -16,6 +16,16 @@ services:
       timeout: 5s
       retries: 10
 
+  migrate:
+    build: .
+    command: node ./node_modules/prisma/build/index.js migrate deploy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/head2head
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
   app:
     build: .
     restart: unless-stopped
@@ -26,8 +36,8 @@ services:
       ADMIN_SECRET: ${ADMIN_SECRET:-changeme}
       BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN:-}
     depends_on:
-      db:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
 volumes:
   postgres_data:
