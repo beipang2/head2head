@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
-import { getLocale, getMessages } from "@/lib/i18n";
+import { getMessages } from "@/lib/i18n";
+import { getLocale } from "@/lib/locale";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import Nav from "@/components/Nav";
 import "./globals.css";

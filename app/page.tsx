@@ -1,4 +1,5 @@
-import { getLocale, getMessages } from "@/lib/i18n";
+import { getMessages } from "@/lib/i18n";
+import { getLocale } from "@/lib/locale";
 import { getLeaderboard } from "@/lib/queries";
 import TournamentView from "@/components/TournamentView";
 
