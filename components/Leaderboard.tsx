@@ -2,6 +2,17 @@
 
 import Image from "next/image";
 import AdSlot from "./AdSlot";
+import siteConfig from "@/site.config";
+
+const accentText: Record<typeof siteConfig.accentColor, string> = {
+  rose: "text-rose-400",
+  blue: "text-blue-400",
+  emerald: "text-emerald-400",
+  violet: "text-violet-400",
+  amber: "text-amber-400",
+  cyan: "text-cyan-400",
+  orange: "text-orange-400",
+};
 
 interface Photo {
   id: string;
@@ -56,7 +67,7 @@ export default function Leaderboard({ photos }: { photos: Photo[] }) {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-rose-400 font-bold text-lg">
+                  <p className={`${accentText[siteConfig.accentColor]} font-bold text-lg`}>
                     {Math.round(photo.rating)}
                   </p>
                   <p className="text-zinc-600 text-xs">ELO</p>

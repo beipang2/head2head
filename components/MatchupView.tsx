@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import PhotoCard from "./PhotoCard";
 import AdSlot from "./AdSlot";
+import siteConfig from "@/site.config";
 
 interface Photo {
   id: string;
@@ -66,7 +67,7 @@ export default function MatchupView({ initialA, initialB }: MatchupViewProps) {
       <AdSlot slot="top-banner" className="w-full h-20 max-w-2xl" />
 
       <p className="text-zinc-400 text-sm tracking-widest uppercase">
-        Click the one you prefer
+        {siteConfig.votePrompt}
       </p>
 
       <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full max-w-4xl px-4">

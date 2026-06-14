@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import MatchupView from "@/components/MatchupView";
+import siteConfig from "@/site.config";
 
 export const dynamic = "force-dynamic";
 
@@ -21,15 +22,13 @@ export default async function Home() {
   }
 
   const shuffled = [...photos].sort(() => Math.random() - 0.5);
-  const a = shuffled[0];
-  const b = shuffled[1];
 
   return (
     <div className="flex flex-col items-center gap-8 w-full">
       <h1 className="text-4xl font-black tracking-tight text-center">
-        Which one is better?
+        {siteConfig.tagline}
       </h1>
-      <MatchupView initialA={a} initialB={b} />
+      <MatchupView initialA={shuffled[0]} initialB={shuffled[1]} />
     </div>
   );
 }
