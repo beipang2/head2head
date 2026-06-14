@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
+const prisma = new PrismaClient({ adapter });
 
 const photos = [
   { seed: "alpine",     label: "Alpine Lake" },
@@ -23,18 +25,12 @@ const photos = [
 
 async function main() {
   console.log("Seeding photos…");
-
   await prisma.photo.deleteMany();
-
   for (const p of photos) {
     await prisma.photo.create({
-      data: {
-        url: `https://picsum.photos/seed/${p.seed}/800/800`,
-        label: p.label,
-      },
+      data: { url: `https://picsum.photos/seed/${p.seed}/800/800`, label: p.label },
     });
   }
-
   console.log(`✓ Inserted ${photos.length} photos`);
 }
 
