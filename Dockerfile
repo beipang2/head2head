@@ -21,21 +21,9 @@ FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Next.js standalone output
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-
-# Prisma — client + adapter + CLI + engines
-COPY --from=builder /app/node_modules/.prisma            ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma/client     ./node_modules/@prisma/client
-COPY --from=builder /app/node_modules/@prisma/adapter-pg ./node_modules/@prisma/adapter-pg
-COPY --from=builder /app/node_modules/@prisma/engines    ./node_modules/@prisma/engines
-COPY --from=builder /app/node_modules/prisma             ./node_modules/prisma
-COPY --from=builder /app/node_modules/pg                 ./node_modules/pg
-COPY --from=builder /app/node_modules/dotenv             ./node_modules/dotenv
-COPY --from=builder /app/prisma                          ./prisma
-COPY --from=builder /app/prisma.config.ts                ./prisma.config.ts
 
 EXPOSE 3000
 ENV PORT=3000
