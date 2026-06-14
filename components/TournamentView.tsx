@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import PhotoCard from "./PhotoCard";
-import AdSlot from "./AdSlot";
 import Champion from "./Champion";
 import { buildBracket, advance, type Photo, type BracketState } from "@/lib/bracket";
 
@@ -12,7 +11,6 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
   const [bracket, setBracket] = useState<BracketState | null>(null);
   const [voted, setVoted] = useState<string | null>(null);
 
-  // Restore or build bracket
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(STORAGE_KEY);
@@ -34,7 +32,6 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
 
       setVoted(winnerId);
 
-      // Fire ELO update — intentionally non-blocking
       fetch("/api/vote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,8 +54,7 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
 
   function restart() {
     sessionStorage.removeItem(STORAGE_KEY);
-    const fresh = buildBracket(photos);
-    setBracket(fresh);
+    setBracket(buildBracket(photos));
   }
 
   if (!bracket) return null;
@@ -68,14 +64,9 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
   }
 
   const match = bracket.queue[0];
-  const totalMatches = Math.log2(
-    bracket.queue.length + bracket.winners.length + (bracket.champion ? 1 : 0)
-  );
 
   return (
     <div className="flex flex-col items-center gap-6 w-full">
-      <AdSlot slot="top-banner" className="w-full h-20 max-w-2xl" />
-
       <p className="text-zinc-500 text-xs tracking-widest uppercase">
         Round {bracket.round}
       </p>
@@ -103,8 +94,6 @@ export default function TournamentView({ photos }: { photos: Photo[] }) {
           loser={voted !== null && voted !== match.b.id}
         />
       </div>
-
-      <AdSlot slot="bottom-banner" className="w-full h-20 max-w-2xl" />
     </div>
   );
 }
